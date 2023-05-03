@@ -1,14 +1,36 @@
+.cus-card{
+    margin: 20px;
+    border: 1px solid rgb(34, 34, 35);
+    width: 300px;
+}
+h1{
+    text-align: center;
+}
+#card{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    width: 70%;
+    position: relative;
+    left: 15%;
+}
+
 #myMoviesTable {
     border-collapse: collapse;
-    width: 100%;
+    width: 60%;
     font-size: 16px;
     font-weight: 500;
     text-align: left;
     margin: 20px 0;
+    position: relative;
+    left: 20%;
 }
 
 #myMoviesTable th,
 #myMoviesTable td {
+    text-align: center;
     padding: 12px 15px;
     border: 1px solid #ddd;
 }
@@ -29,10 +51,66 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 40%;
+    position: relative;
+    left: 35%;
 }
 
 #list li {
     padding: 10px;
     border: 1px solid #ccc;
     margin-bottom: 5px;
+}
+
+#weather-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 450px;
+    height: 300px;
+    flex-direction: column;
+    margin: 49px auto;
+}
+#weather-card{
+      background-image: linear-gradient(to right, rgba(0, 133, 215, 0.84) , rgb(103, 140, 170));
+}
+
+.weather-icon img{
+    width: 100px;
+    height: 100px;
+}
+
+.details{
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+    align-items: center ;
+}
+.weather-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.weather-icon img {
+    max-width: 100px;
+}
+
+.city-name {
+    margin: 0;
+    font-size: 28px;
+}
+
+.temperature {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.weather-description {
+    margin-top: 20px;
 }

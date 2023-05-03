@@ -9,39 +9,48 @@
     <link rel="stylesheet" href="./style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <style>
-            .cus-card{
-                margin: 20px;
-                border: 1px solid rgb(34, 34, 35);
-            }
-            #card{
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-            }
-        </style>
+
 </head>
 
 <body>
-    <div  id="card" style="margin: 10px;">
-       
-         
-        
-      </div>
-    <table id="myMoviesTable">
-        <thead>
-            <th>Name</th>
-            <th>UserName</th>
-            <th>Email</th>
-        </thead>
-        <tbody id="userTable">
-        </tbody>
-    </table>
+    <div>
+        <h1>Weather Card </h1>
+        <div id="weather-card">
+
+        </div>
+    </div>
+
+    <div>
+        <h1>Card View</h1>
+        <div id="card" style="margin: 10px;">
+
+
+
+        </div>
+    </div>
+    <div>
+        <h1>Table View</h1>
+        <table id="myMoviesTable">
+            <thead>
+                <th>Name</th>
+                <th>UserName</th>
+                <th>Email</th>
+            </thead>
+            <tbody id="userTable">
+            </tbody>
+        </table>
+    </div>
+
     <br>
-    <ul id="list">
-        <li>${a.id}......${a.name}</li>
-    </ul>
+    <div>
+        <h1> List View</h1>
+        <ul id="list">
+            <li>${a.id}......${a.name}</li>
+        </ul>
+    </div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
@@ -52,13 +61,13 @@
             .then(users => {
                 console.log(users)
                 html = ''
-                list=''
-                card=''
+                list = ''
+                card = ''
                 users.forEach(a => {
-            
+
                     html += `<tr><td>${a.name}</td><td>${a.username}</td><td>${a.email}</td></tr> `
-                    list+=`<li>${a.id}......${a.name}</li>`
-                    card+=`<div class="card-body cus-card"> 
+                    list += `<li>${a.id} . ${a.name}</li>`
+                    card += `<div class="card-body cus-card"> 
                         <h5 class="card-title">${a.name}</h5>
                       <h6 class="card-subtitle mb-2 text-muted">${a.email}</h6>
                       <a href="#" class="card-link">${a.website}</a>
@@ -66,9 +75,8 @@
                 })
                 console.log(html)
                 document.getElementById("userTable").innerHTML = html;
-                document.getElementById("list").innerHTML=list;
-                document.getElementById("card").innerHTML=card;
-
+                document.getElementById("list").innerHTML = list;
+                document.getElementById("card").innerHTML = card;
 
             })
 
