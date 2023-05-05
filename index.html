@@ -37,6 +37,7 @@
                 <th>Email</th>
             </thead>
             <tbody id="userTable">
+                 
             </tbody>
         </table>
     </div>
@@ -45,7 +46,6 @@
     <div>
         <h1> List View</h1>
         <ul id="list">
-            <li>${a.id}......${a.name}</li>
         </ul>
     </div>
 
@@ -59,13 +59,15 @@
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(res => res.json())
             .then(users => {
-                console.log(users)
+                console.log(users,'dfghjkl');
                 html = ''
                 list = ''
                 card = ''
                 users.forEach(a => {
 
-                    html += `<tr><td>${a.name}</td><td>${a.username}</td><td>${a.email}</td></tr> `
+                    html += `<tr><td>${a.name}</td><td>${a.username}</td><td>${a.email}</td><td>${a.website}</td></tr> `
+
+
                     list += `<li>${a.id} . ${a.name}</li>`
                     card += `<div class="card-body cus-card"> 
                         <h5 class="card-title">${a.name}</h5>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./testStyle.css">
+</head>
+
+<body>
+    <h3>hi Welcome</h3>
+    <form>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title"><br>
+        <label for="body">Body</label>
+        <input type="text" name="body" id="body"><br>
+        <label for="user">UserId</label>
+        <input type="text" name="userid" id="userid"><br>
+        <input type="button" value="Create User" onclick="createUser()" id="btn">
+
+
+    </form>
+
+    <script>
+        function createUser(){
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: document.getElementById("title").value,
+                body: document.getElementById("body").value,
+                userId: document.getElementById("userid").value,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+        }
+        
+    </script>
+</body>
+
+</html>
