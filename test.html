@@ -40,6 +40,7 @@
         </tbody>
     </table>
     <script>
+        let userId;
         let name = document.getElementById("name");
         let email = document.getElementById("email");
         let messages = document.getElementById("message");
@@ -120,11 +121,11 @@
                 document.getElementById("btn").onclick = createUser;
             }
         }
-        
+
         function updateData() {
             btn = !btn
             console.log('update..')
-            let userId = document.getElementById("forId").value;
+             userId = document.getElementById("forId").value;
             console.log(userId, "done")
             fetch('http://localhost:4000/updateById/' + userId, {
                 method: 'PUT',
@@ -160,7 +161,9 @@
             document.getElementById("resetBtn").disabled = true;
         };
 
-
+        function deleteData(){
+            
+        }
 
     </script>
 </body>
