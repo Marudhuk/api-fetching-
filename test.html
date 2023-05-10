@@ -10,36 +10,44 @@
 </head>
 
 <body>
-    <h3>CRUD</h3>
-    <form id="myForm">
-        <label for="title">Name</label>
-        <input type="text" name="name" id="name"><br>
-        <label for="body">Email</label>
-        <input type="text" name="email" id="email"><br>
-        <label for="user">Message</label>
-        <input type="text" name="message" id="message"><br>
-        <input type="button" value="Create User" onclick="createUser()" id="btn">
-        <input type="button" value="Get Data" onclick="getData()" id="getDataBtn">
-        <!-- <input type="button" value="Update Data" onclick="updateData()" id="updateDataBtn"> -->
-        <input type="hidden" name="id" id="forId">
-        <button type="button" disabled="true" onclick="resetForm()" id="resetBtn">Reset</button>
-
-
-    </form><br><br>
-    <table id="myMoviesTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Message</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="userTable">
-
-        </tbody>
-    </table>
+    <div class="whole">
+        <div class="left">
+            <h3>CRUD</h3>
+            <form id="myForm">
+            <label for="title">Name</label>
+            <input type="text" name="name" id="name"><br>
+            <label for="body">Email</label>
+            <input type="text" name="email" id="email"><br>
+            <label for="user">Message</label>
+            <input type="text" name="message" id="message"><br>
+            <input type="button" value="Create User" onclick="createUser()" id="btn">
+            <input type="hidden" name="id" id="forId">
+            <button type="button" disabled="true" onclick="resetForm()" id="resetBtn">Reset</button>
+    
+    
+            </form>
+        </div>
+        <div class="right">
+            <h3>Details</h3>
+            <table id="myMoviesTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable">
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+   
     <script>
+        getData();
         let userId;
         let name = document.getElementById("name");
         let email = document.getElementById("email");
@@ -54,9 +62,7 @@
                 }
                 else {
                     document.getElementById("resetBtn").disabled = true;
-
                 }
-
             })
         })
         
@@ -83,7 +89,6 @@
         }
 
         function getData() {
-            console.log('dfghjkl');
             fetch('http://localhost:4000/getAllUsers')
                 .then(res => res.json())
                 .then(users => {
@@ -92,7 +97,7 @@
                     users.forEach(a => {
                         html += `<tr><td>${a.username}</td><td>${a.email}</td><td>${a.messages}</td>
                         <td><button class="edit-btn" onclick="editData(${a.id})">Edit</button>
-                        <button class="delete-btn" onclick="deleteData()">Delete</button></td></tr>`
+                        <button class="delete-btn" onclick="deleteData(${a.id})">Delete</button></td></tr>`
                     })
                     console.log(html, "HTML")
                     document.getElementById("userTable").innerHTML = html;
@@ -100,7 +105,7 @@
         }
 
         function editData(id) {
-            btn = !btn
+            btn = true;
             console.log('edittt');
             fetch('http://localhost:4000/getById/' + id)
                 .then(res => res.json())
@@ -111,6 +116,7 @@
                     document.getElementById("name").value = username;
                     document.getElementById("email").value = email;
                     document.getElementById("message").value = messages;
+                    document.getElementById("resetBtn").disabled = false;
                 })
             if (btn) {
                 document.getElementById("btn").value = "Update Data";
@@ -123,9 +129,9 @@
         }
 
         function updateData() {
-            btn = !btn
+            btn = false;
             console.log('update..')
-             userId = document.getElementById("forId").value;
+            userId = document.getElementById("forId").value;
             console.log(userId, "done")
             fetch('http://localhost:4000/updateById/' + userId, {
                 method: 'PUT',
@@ -161,8 +167,19 @@
             document.getElementById("resetBtn").disabled = true;
         };
 
-        function deleteData(){
-            
+        function deleteData(id){
+            fetch('http://localhost:4000/deleteById/' + id, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.text())
+                .then((json) => {
+                    console.log(json)
+                    // resetForm();
+                    getData();
+                }); 
         }
 
     </script>
