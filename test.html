@@ -22,7 +22,8 @@
         <input type="button" value="Get Data" onclick="getData()" id="getDataBtn">
         <!-- <input type="button" value="Update Data" onclick="updateData()" id="updateDataBtn"> -->
         <input type="hidden" name="id" id="forId">
-        <input type="button" value="Reset" onclick="resetForm()" id="resetBtn">
+        <button type="button" disabled="true" onclick="resetForm()" id="resetBtn">Reset</button>
+
 
     </form><br><br>
     <table id="myMoviesTable">
@@ -39,6 +40,25 @@
         </tbody>
     </table>
     <script>
+        let name = document.getElementById("name");
+        let email = document.getElementById("email");
+        let messages = document.getElementById("message");
+        let arr = []
+        arr.push(name, email, messages);
+        arr.forEach(e => {
+            e.addEventListener("input", () => {
+                if (name.value.length || email.value.length || messages.value.length) {
+                    document.getElementById("resetBtn").disabled = false;
+                    document.getElementById("resetBtn").style.cursor = "pointer";
+                }
+                else {
+                    document.getElementById("resetBtn").disabled = true;
+
+                }
+
+            })
+        })
+        
         let btn = false;
         function createUser() {
             console.log("Create user")
@@ -77,7 +97,7 @@
                     document.getElementById("userTable").innerHTML = html;
                 })
         }
-        
+
         function editData(id) {
             btn = !btn
             console.log('edittt');
@@ -90,7 +110,6 @@
                     document.getElementById("name").value = username;
                     document.getElementById("email").value = email;
                     document.getElementById("message").value = messages;
-
                 })
             if (btn) {
                 document.getElementById("btn").value = "Update Data";
@@ -99,9 +118,9 @@
             else {
                 document.getElementById("btn").value = "Create user";
                 document.getElementById("btn").onclick = createUser;
-
             }
         }
+        
         function updateData() {
             btn = !btn
             console.log('update..')
@@ -137,10 +156,10 @@
 
         function resetForm() {
             console.log("Resett")
-            let x = document.getElementsByTagName("form").value;
-            console.log(x);
             document.getElementById("myForm").reset();
+            document.getElementById("resetBtn").disabled = true;
         };
+
 
 
     </script>

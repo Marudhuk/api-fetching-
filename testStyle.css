@@ -88,9 +88,18 @@ input[type="button"]:hover {
 #updateDataBtn,
 #resetBtn {
   background-color: #000;
-  border: 1px solid #dc3545;
-  margin-right: 10px;
+border: 1px solid #dc3545;
+margin-right: 10px;
+height: 40px;
+margin-top: 20px;
+color: white;
 }
+#resetBtn:disabled{
+  color: black;
+  background-color: rgb(166, 156, 156);
+  border: none;
+}
+
 
 #getDataBtn:hover,
 #updateDataBtn:hover,
@@ -98,6 +107,7 @@ input[type="button"]:hover {
   background-color: #333;
   border-color: #c82333;
 }
+
 
 h1 {
   text-align: center;
