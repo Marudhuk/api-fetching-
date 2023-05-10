@@ -35,9 +35,10 @@
                 <th>Name</th>
                 <th>UserName</th>
                 <th>Email</th>
+                <th>Website</th>
             </thead>
             <tbody id="userTable">
-                 
+                
             </tbody>
         </table>
     </div>
@@ -75,10 +76,11 @@
                       <a href="#" class="card-link">${a.website}</a>
                       </div>`
                 })
-                console.log(html)
+                console.log(html,"HTML")
                 document.getElementById("userTable").innerHTML = html;
                 document.getElementById("list").innerHTML = list;
                 document.getElementById("card").innerHTML = card;
+                // document.getElementById('got').innerText='Ragul';
 
             })
 

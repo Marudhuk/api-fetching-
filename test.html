@@ -10,36 +10,139 @@
 </head>
 
 <body>
-    <h3>hi Welcome</h3>
-    <form>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title"><br>
-        <label for="body">Body</label>
-        <input type="text" name="body" id="body"><br>
-        <label for="user">UserId</label>
-        <input type="text" name="userid" id="userid"><br>
+    <h3>CRUD</h3>
+    <form id="myForm">
+        <label for="title">Name</label>
+        <input type="text" name="name" id="name"><br>
+        <label for="body">Email</label>
+        <input type="text" name="email" id="email"><br>
+        <label for="user">Message</label>
+        <input type="text" name="message" id="message"><br>
         <input type="button" value="Create User" onclick="createUser()" id="btn">
+        <input type="button" value="Get Data" onclick="getData()" id="getDataBtn">
+        <!-- <input type="button" value="Update Data" onclick="updateData()" id="updateDataBtn"> -->
+        <input type="hidden" name="id" id="forId">
+        <input type="button" value="Reset" onclick="resetForm()" id="resetBtn">
 
+    </form><br><br>
+    <table id="myMoviesTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="userTable">
 
-    </form>
-
+        </tbody>
+    </table>
     <script>
-        function createUser(){
-            fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            body: JSON.stringify({
-                title: document.getElementById("title").value,
-                body: document.getElementById("body").value,
-                userId: document.getElementById("userid").value,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((json) => console.log(json));
+        let btn = false;
+        function createUser() {
+            console.log("Create user")
+            fetch('http://localhost:4000/postdata', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    messages: document.getElementById("message").value,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json)
+                    getData();
+                    resetForm();
+                });
+        }
+
+        function getData() {
+            console.log('dfghjkl');
+            fetch('http://localhost:4000/getAllUsers')
+                .then(res => res.json())
+                .then(users => {
+                    console.log(users, 'dfghjkl');
+                    html = ''
+                    users.forEach(a => {
+                        html += `<tr><td>${a.username}</td><td>${a.email}</td><td>${a.messages}</td>
+                        <td><button class="edit-btn" onclick="editData(${a.id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteData()">Delete</button></td></tr>`
+                    })
+                    console.log(html, "HTML")
+                    document.getElementById("userTable").innerHTML = html;
+                })
         }
         
+        function editData(id) {
+            btn = !btn
+            console.log('edittt');
+            fetch('http://localhost:4000/getById/' + id)
+                .then(res => res.json())
+                .then(users => {
+                    console.log(users)
+                    let { id, username, email, messages } = users[0]
+                    document.getElementById('forId').value = id;
+                    document.getElementById("name").value = username;
+                    document.getElementById("email").value = email;
+                    document.getElementById("message").value = messages;
+
+                })
+            if (btn) {
+                document.getElementById("btn").value = "Update Data";
+                document.getElementById("btn").onclick = updateData;
+            }
+            else {
+                document.getElementById("btn").value = "Create user";
+                document.getElementById("btn").onclick = createUser;
+
+            }
+        }
+        function updateData() {
+            btn = !btn
+            console.log('update..')
+            let userId = document.getElementById("forId").value;
+            console.log(userId, "done")
+            fetch('http://localhost:4000/updateById/' + userId, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    messages: document.getElementById("message").value,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.text())
+                .then((json) => {
+                    console.log(json)
+                    resetForm();
+                    getData();
+                });
+            if (btn) {
+                document.getElementById("btn").value = "Update Data";
+                document.getElementById("btn").onclick = updateData;
+            }
+            else {
+                document.getElementById("btn").value = "Create user";
+                document.getElementById("btn").onclick = createUser;
+
+            }
+        }
+
+        function resetForm() {
+            console.log("Resett")
+            let x = document.getElementsByTagName("form").value;
+            console.log(x);
+            document.getElementById("myForm").reset();
+        };
+
+
     </script>
 </body>
 
