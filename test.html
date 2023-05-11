@@ -14,17 +14,15 @@
         <div class="left">
             <h3>CRUD</h3>
             <form id="myForm">
-            <label for="title">Name</label>
-            <input type="text" name="name" id="name"><br>
-            <label for="body">Email</label>
-            <input type="text" name="email" id="email"><br>
-            <label for="user">Message</label>
-            <input type="text" name="message" id="message"><br>
-            <input type="button" value="Create User" onclick="createUser()" id="btn">
-            <input type="hidden" name="id" id="forId">
-            <button type="button" disabled="true" onclick="resetForm()" id="resetBtn">Reset</button>
-    
-    
+                <label for="title">Name</label>
+                <input type="text" name="name" id="name"  required><br>
+                <label for="body">Email</label>
+                <input type="text" name="email" id="email"  required><br>
+                <label for="user">Message</label>
+                <input type="text" name="message" id="message"  required><br>
+                <input type="button" value="Create User" disabled="true" onclick="createUser()" id="btn">
+                <input type="hidden" name="id" id="forId">
+                <button type="button" disabled="true" onclick="resetForm()" id="resetBtn">Reset</button>
             </form>
         </div>
         <div class="right">
@@ -39,16 +37,16 @@
                     </tr>
                 </thead>
                 <tbody id="userTable">
-        
+
                 </tbody>
             </table>
         </div>
     </div>
-  
-   
+
     <script>
         getData();
         let userId;
+        let btn = false;
         let name = document.getElementById("name");
         let email = document.getElementById("email");
         let messages = document.getElementById("message");
@@ -58,15 +56,17 @@
             e.addEventListener("input", () => {
                 if (name.value.length || email.value.length || messages.value.length) {
                     document.getElementById("resetBtn").disabled = false;
+                    document.getElementById("btn").disabled = false;
                     document.getElementById("resetBtn").style.cursor = "pointer";
                 }
                 else {
                     document.getElementById("resetBtn").disabled = true;
+                    document.getElementById("btn").disabled = true;
+
                 }
             })
         })
-        
-        let btn = false;
+
         function createUser() {
             console.log("Create user")
             fetch('http://localhost:4000/postdata', {
@@ -165,9 +165,11 @@
             console.log("Resett")
             document.getElementById("myForm").reset();
             document.getElementById("resetBtn").disabled = true;
+            document.getElementById("btn").disabled = true;
+
         };
 
-        function deleteData(id){
+        function deleteData(id) {
             fetch('http://localhost:4000/deleteById/' + id, {
                 method: 'PUT',
                 headers: {
@@ -177,9 +179,8 @@
                 .then((response) => response.text())
                 .then((json) => {
                     console.log(json)
-                    // resetForm();
                     getData();
-                }); 
+                });
         }
 
     </script>
