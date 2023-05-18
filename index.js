@@ -7,7 +7,7 @@ app = express()
 app.use(cors())
 app.use(express.json())
 
-var connection = mysql.createConnection({
+var connection = mysql.createConnection({ 
   host: 'localhost',
   user: 'marudhu',
   password: 'Marudhu@02',
@@ -74,26 +74,3 @@ app.put('/deleteById/:id', (req, res) => {
 app.listen(4000, () => {
   console.log('listening on port 4000')
 })
-
-
-
-// user = [
-//     { id: 1, name: "praveen", gender: 'Male' },
-//     { id: 2, name: "Saroo", gender: 'Male' },
-//     { id: 3, name: "Muthu", gender: 'Male' }
-// ]
-
-// app.get('/users', (req, res) => {
-//     // console.log(req.query['abc'], "request")
-//     // console.log("I am inside get")
-//     //connect to db to fetch all users and assign it to a json var and send itas json
-//     // res.send("hi , welcome")
-//     res.json(users);
-
-// })
-// app.get("/:id",(req,res)=>{
-//     console.log(req.params,"fghjk")
-//     res.json(user.filter(e=>
-//         e.id==req.params.id
-//     ))
-// })
